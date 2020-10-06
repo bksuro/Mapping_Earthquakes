@@ -10,7 +10,7 @@ let map = L.map('mapid').setView([37.62, -122.375], 11);
 //'https://api.mapbox.com/styles/v1/mapbox/satellite-streets-v11/tiles/{z}/{x}/{y}?access_token={accessToken}'
 
 // We create the tile layer that will be the background of our map.
-let streets = L.tileLayer('https://api.mapbox.com/styles/v1/mapbox/satellite-streets-v11/tiles/{z}/{x}/{y}?access_token={accessToken}', {
+let streets = L.tileLayer('https://api.mapbox.com/styles/v1/mapbox/outdoors-v11/tiles/{z}/{x}/{y}?access_token={accessToken}', {
     attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors, <a href="https://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',
     maxZoom: 18,
     accessToken: API_KEY
@@ -54,7 +54,7 @@ let sanFranAirport =
 L.geoJson(sanFranAirport, {
 	onEachFeature: function(feature, layer) {
 		console.log(layer);
-		layer.bindPopup();
+		layer.bindPopup("<h3> Airport code: " + feature.properties.faa + "</h3>" + "<hr><h4>Airport name: " + feature.properties.name + "</h4>");
 	}
 }).addTo(map);
 

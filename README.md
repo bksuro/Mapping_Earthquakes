@@ -21,24 +21,34 @@ Using D3 data is extracted from the websites in geojson format and using leaflet
 
   6 Different screenshots below show various options for the page.
   
-  #### Streets with all options
-    
-    !["Streets all"](./Resources/streets_all.png "Streets and all")
-    
-    
-  #### Satellite with all options
+  - Streets with all options
+  
+  !["Streets all"](./Resources/streets_all.png "Streets and all")
     
     
-  #### Dark with all options
+  - Satellite with all options
     
+  !["Satellite all"](./Resources/satellite_all.png "Satellite and all")
+  
+  
+  - Dark with all options
     
-  #### Streets with tectonic options
+  !["Dark all"](./Resources/dark_all.png "Dark and all")
+  
+  
+  - Streets with tectonic options
     
+  !["Streets tectonic"](./Resources/streets_tectonic.png "Streets and tectonic plates only")
+  
+  
+  - Satellite with all earthquakes options
     
-  #### Satellite with all earthquakes options
+  !["Satellite Earthquakes"](./Resources/satellite_earthquakes.png "Satellite and all Earthquakes")
+  
+  
+  - Dark with major earthquakes options
     
-    
-  #### Dark with major earthquakes options
-    
-    
-    
+  !["Dark Major Earthquakes"](./Resources/dark_major_earthquakes.png "Streets and all")  
+  
+  
+  

@@ -1,5 +1,5 @@
 // Add console.log to check to see if our code is working.
-console.log("working");
+//console.log("working");
 
 // We create the tile layer that will be the background of our map.
 let streets = L.tileLayer('https://api.mapbox.com/styles/v1/mapbox/streets-v11/tiles/{z}/{x}/{y}?access_token={accessToken}', {
@@ -30,11 +30,12 @@ let baseMaps = {
 
 // 1. Add a 2nd layer group for the tectonic plate data.
 let allEarthquakes = new L.LayerGroup();
-
+let tectonicPlates = new L.LayerGroup();
 
 // 2. Add a reference to the tectonic plates group to the overlays object.
 let overlays = {
-  "Earthquakes": allEarthquakes
+  "Earthquakes": allEarthquakes,
+  "TectonicPlates": tectonicPlates
 };
 
 // Then we add a control to the map that will allow the user to change which
@@ -92,7 +93,7 @@ d3.json("https://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/all_week.geoj
   L.geoJson(data, {
     	// We turn each feature into a circleMarker on the map.
     	pointToLayer: function(feature, latlng) {
-      		console.log(data);
+      		//console.log(data);
       		return L.circleMarker(latlng);
         },
       // We set the style for each circleMarker using our styleInfo function.
@@ -108,30 +109,30 @@ d3.json("https://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/all_week.geoj
   allEarthquakes.addTo(map);
 
   // Here we create a legend control object.
-let legend = L.control({
-  position: "bottomright"
-});
+  let legend = L.control({
+    position: "bottomright"
+  });
 
-// Then add all the details for the legend
-legend.onAdd = function() {
-  let div = L.DomUtil.create("div", "info legend");
+  // Then add all the details for the legend
+  legend.onAdd = function() {
+    let div = L.DomUtil.create("div", "info legend");
 
-  const magnitudes = [0, 1, 2, 3, 4, 5];
-  const colors = [
-    "#98ee00",
-    "#d4ee00",
-    "#eecc00",
-    "#ee9c00",
-    "#ea822c",
-    "#ea2c2c"
-  ];
+    const magnitudes = [0, 1, 2, 3, 4, 5];
+    const colors = [
+      "#98ee00",
+      "#d4ee00",
+      "#eecc00",
+      "#ee9c00",
+      "#ea822c",
+      "#ea2c2c"
+    ];
 
-// Looping through our intervals to generate a label with a colored square for each interval.
-  for (var i = 0; i < magnitudes.length; i++) {
-    console.log(colors[i]);
-    div.innerHTML +=
-      "<i style='background: " + colors[i] + "'></i> " +
-      magnitudes[i] + (magnitudes[i + 1] ? "&ndash;" + magnitudes[i + 1] + "<br>" : "+");
+    // Looping through our intervals to generate a label with a colored square for each interval.
+    for (var i = 0; i < magnitudes.length; i++) {
+      //console.log(colors[i]);
+      div.innerHTML +=
+        "<i style='background: " + colors[i] + "'></i> " +
+        magnitudes[i] + (magnitudes[i + 1] ? "&ndash;" + magnitudes[i + 1] + "<br>" : "+");
     }
     return div;
   };
@@ -141,7 +142,27 @@ legend.onAdd = function() {
 
 
   // 3. Use d3.json to make a call to get our Tectonic Plate geoJSON data.
-  d3.json().then(() {
-    
+  d3.json("https://raw.githubusercontent.com/fraxen/tectonicplates/master/GeoJSON/PB2002_boundaries.json").then(function(tectonicData) {
+    console.log(tectonicData);
+	
+	// Create a style for the lines.
+    let myStyle = {
+      color: "darkorange",
+      weight: 2
+    }
+	
+	// Creating a GeoJSON layer with the retrieved data.
+    L.geoJson(tectonicData, {
+		style: myStyle,
+		// We LineString features on the map.
+    	onEachFeature: function(feature, layer) {
+      		//console.log(layer);
+      		
+        }
+    }).addTo(tectonicPlates);
+	
+    // Then we add the tectonic plates layer to our map.
+    tectonicPlates.addTo(map);
+	
   });
 });
